@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <!-- 主程序文件 -->
+      <Component Id="MainExecutable" Guid="12345678-1234-1234-1234-123456789016">
+        <File Id="MarkdownReader.exe" 
+              Source="$(var.PublishDir)\MarkdownReader.exe" 
+              KeyPath="yes" />
+      </Component>
+
+      <!-- 图标文件 -->
+      <Component Id="IconFile" Guid="12345678-1234-1234-1234-123456789019">
+        <File Id="app_icon.ico" 
+              Source="$(var.PublishDir)\app-icon.ico" 
+              KeyPath="yes" />
+      </Component>
+
+      <!-- 所有其他发布文件 -->
+      <Component Id="PublishedFiles" Guid="12345678-1234-1234-1234-123456789017">
+        <File Id="MarkdownReader.dll" Source="$(var.PublishDir)\MarkdownReader.dll" />
+        <File Id="MarkdownReader.Core.dll" Source="$(var.PublishDir)\MarkdownReader.Core.dll" />
+        <File Id="MarkdownReader.runtimeconfig.json" Source="$(var.PublishDir)\MarkdownReader.runtimeconfig.json" />
+        <File Id="MarkdownReader.deps.json" Source="$(var.PublishDir)\MarkdownReader.deps.json" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+</Wix>

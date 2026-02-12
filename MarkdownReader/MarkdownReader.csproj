@@ -15,6 +15,14 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>app-icon.ico</ApplicationIcon>
+    <AssemblyName>MarkdownReader</AssemblyName>
+    <Version>0.0.1</Version>
+    <Authors>Your Name</Authors>
+    <Company>Your Company</Company>
+    <Product>Markdown Reader</Product>
+    <Description>A modern Markdown file reader and viewer</Description>
+    <Copyright>Copyright © 2026</Copyright>
   </PropertyGroup>
 
 </Project>

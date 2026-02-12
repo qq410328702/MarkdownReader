@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="*" 
+           Name="Markdown Reader" 
+           Language="1033" 
+           Version="0.0.1.0" 
+           Manufacturer="Your Company" 
+           UpgradeCode="12345678-1234-1234-1234-123456789012">
+    
+    <Package InstallerVersion="200" 
+             Compressed="yes" 
+             InstallScope="perMachine" 
+             Description="Markdown Reader Installer"
+             Comments="Installs Markdown Reader with file association" />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+
+    <!-- 定义安装目录 -->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="MarkdownReader" />
+      </Directory>
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="Markdown Reader"/>
+      </Directory>
+      <Directory Id="DesktopFolder" Name="Desktop" />
+    </Directory>
+
+    <!-- 主要功能组件 -->
+    <Feature Id="ProductFeature" Title="Markdown Reader" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+      <ComponentRef Id="ApplicationShortcut" />
+      <ComponentRef Id="DesktopShortcut" />
+      <ComponentRef Id="MarkdownFileAssociation" />
+    </Feature>
+
+    <!-- 程序快捷方式 -->
+    <DirectoryRef Id="ApplicationProgramsFolder">
+      <Component Id="ApplicationShortcut" Guid="12345678-1234-1234-1234-123456789013">
+        <Shortcut Id="ApplicationStartMenuShortcut"
+                  Name="Markdown Reader"
+                  Description="Open Markdown files with ease"
+                  Target="[INSTALLFOLDER]MarkdownReader.exe"
+                  WorkingDirectory="INSTALLFOLDER"/>
+        <RemoveFolder Id="CleanUpShortCut" Directory="ApplicationProgramsFolder" On="uninstall"/>
+        <RegistryValue Root="HKCU" 
+                       Key="Software\MarkdownReader" 
+                       Name="installed" 
+                       Type="integer" 
+                       Value="1" 
+                       KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+
+    <!-- 桌面快捷方式 -->
+    <DirectoryRef Id="DesktopFolder">
+      <Component Id="DesktopShortcut" Guid="12345678-1234-1234-1234-123456789014">
+        <Shortcut Id="DesktopShortcut"
+                  Name="Markdown Reader"
+                  Description="Open Markdown files with ease"
+                  Target="[INSTALLFOLDER]MarkdownReader.exe"
+                  WorkingDirectory="INSTALLFOLDER"/>
+        <RegistryValue Root="HKCU" 
+                       Key="Software\MarkdownReader" 
+                       Name="desktopShortcut" 
+                       Type="integer" 
+                       Value="1" 
+                       KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+
+    <!-- Markdown 文件关联 -->
+    <DirectoryRef Id="INSTALLFOLDER">
+      <Component Id="MarkdownFileAssociation" Guid="12345678-1234-1234-1234-123456789015">
+        <!-- .md 文件关联 -->
+        <ProgId Id="MarkdownReader.md" Description="Markdown File" Icon="MarkdownReader.exe">
+          <Extension Id="md" ContentType="text/markdown">
+            <Verb Id="open" Command="Open" TargetFile="MarkdownReader.exe" Argument='"%1"' />
+          </Extension>
+        </ProgId>
+        
+        <!-- .markdown 文件关联 -->
+        <ProgId Id="MarkdownReader.markdown" Description="Markdown File" Icon="MarkdownReader.exe">
+          <Extension Id="markdown" ContentType="text/markdown">
+            <Verb Id="open" Command="Open" TargetFile="MarkdownReader.exe" Argument='"%1"' />
+          </Extension>
+        </ProgId>
+
+        <!-- .mdown 文件关联 -->
+        <ProgId Id="MarkdownReader.mdown" Description="Markdown File" Icon="MarkdownReader.exe">
+          <Extension Id="mdown" ContentType="text/markdown">
+            <Verb Id="open" Command="Open" TargetFile="MarkdownReader.exe" Argument='"%1"' />
+          </Extension>
+        </ProgId>
+
+        <RegistryValue Root="HKCU" 
+                       Key="Software\MarkdownReader" 
+                       Name="fileAssociation" 
+                       Type="integer" 
+                       Value="1" 
+                       KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+
+  </Product>
+</Wix>
